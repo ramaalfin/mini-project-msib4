@@ -19,6 +19,22 @@ class Kartu_model {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_kartu_by_id($id) {
+        $stmt = $this->dbh->prepare("SELECT * FROM kartu WHERE id = $id");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function add_kartu($kode, $nama, $diskon, $iuran)
+    {
+        $stmt = $this->dbh->prepare('INSERT INTO kartu (kode, nama, diskon, iuran) VALUES (:kode, :nama, :diskon, :iuran)');
+        $stmt->bindParam(':kode', $kode);
+        $stmt->bindParam(':nama', $nama);
+        $stmt->bindParam(':diskon', $diskon);
+        $stmt->bindParam(':iuran', $iuran);
+        $stmt->execute();
+    }
 }
 
 ?>

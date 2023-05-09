@@ -57,6 +57,7 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
+                                            <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
                                             <div class="table-responsive text-nowrap">
                                                 <table id="example" class="table table-striped" style="width:100%">
                                                     <thead>

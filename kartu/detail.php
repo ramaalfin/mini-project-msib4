@@ -1,10 +1,13 @@
-<?php 
+<?php
 require_once('controller.php');
+if (!$kartu) {
+    echo "Kartu tidak ditemukan.";
+    exit;
+}
 
 $controller = new Kartu_controller();
-$data_kartu = $controller->get_kartu();
 
-$title = 'Kartu';
+$title = 'Detail Kartu';
 $active = "kartu";
 $href = [
     '../assets/vendor/fonts/boxicons.css',
@@ -57,31 +60,36 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
-                                            <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
-                                            <div class="table-responsive text-nowrap">
-                                                <table id="example" class="table table-striped" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Kode</th>
-                                                            <th>Nama</th>
-                                                            <th>Diskon</th>
-                                                            <th>Iuran</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        <?php foreach ($data_kartu as $row) : ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
-                                                                </td>
-                                                                <td><?= $row['nama'] ?></td>
-                                                                <td><?= $row['diskon'] ?></td>
-                                                                <td><?= $row['iuran'] ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            <h5 class="card-title text-primary ms-2">Detail Kartu</h5>
+                                            <form action="controller.php" method="POST">
+                                                <div class="p-2">
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="kode" class="form-label">Kode Kartu (Maks. 6 karakter)</label>
+                                                            <input type="text" id="kode" class="form-control" name="kode" placeholder="Kode" maxlength="6" value="<?= $kartu['kode'] ?>" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="nama" class="form-label">Nama Kartu</label>
+                                                            <input type="text" id="nama" class="form-control" name="nama" placeholder="Nama" value="<?= $kartu['nama'] ?>" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="diskon" class="form-label">Diskon (&#37)</label>
+                                                            <input type="number" step="any" id="diskon" class="form-control" name="diskon" placeholder="diskon" value="<?= $kartu['diskon'] ?>" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="iuran" class="form-label">Iuran (Rp)</label>
+                                                            <input type="number" id="iuran" class="form-control" name="iuran" placeholder="iuran" value="<?= number_format($kartu['iuran'], 0, ',', '.') ?>" required>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" id="btnSubmit" name="editBtnSubmit">Edit</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +98,7 @@ require('../layouts/header.php');
                     </div>
 
                     <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
-                        
+
 
                     </div>
 

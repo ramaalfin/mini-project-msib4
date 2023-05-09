@@ -19,6 +19,26 @@ class Pelanggan_model {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_kartu()
+    {
+        $stmt = $this->dbh->prepare('SELECT * FROM kartu');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function add_pelanggan($kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id)
+    {
+        $stmt = $this->dbh->prepare('INSERT INTO pelanggan (kode, nama_pelanggan, jk, tmp_lahir, tgl_lahir, email, kartu_id) VALUES (:kode, :nama_pelanggan, :jk, :tmp_lahir, :tgl_lahir, :email, :kartu_id)');
+        $stmt->bindParam(':kode', $kode);
+        $stmt->bindParam(':nama_pelanggan', $nama_pelanggan);
+        $stmt->bindParam(':jk', $jk);
+        $stmt->bindParam(':tmp_lahir', $tmp_lahir);
+        $stmt->bindParam(':tgl_lahir', $tgl_lahir);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':kartu_id', $kartu_id);
+        $stmt->execute();
+    }
 }
 
 ?>
