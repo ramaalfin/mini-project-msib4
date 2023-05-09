@@ -6,6 +6,11 @@ if (isset($_POST['addBtnSubmit'])) {
     $controller->add_pesanan($_POST);
 }
 
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $pesanan = $controller->get_pesanan_by_id($id);
+}
+
 class Pesanan_controller{
     private $model;
 
@@ -22,6 +27,10 @@ class Pesanan_controller{
         return $this->model->get_pelanggan();
     }
 
+    public function get_pesanan_by_id($id)
+    {
+        return $this->model->get_pesanan_by_id($id);
+    }
 
     public function add_pesanan($data)
     {

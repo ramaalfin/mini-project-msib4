@@ -1,8 +1,9 @@
 <?php
 require_once('controller.php');
-
-$controller_pesanan = new Pesanan_controller();
-$data_pesanan = $controller_pesanan->get_pesanan();
+if (!$pesanan) {
+    echo "Pesanan tidak ditemukan.";
+    exit;
+}
 
 $title = 'Pesanan';
 $active = "pesanan";
@@ -63,13 +64,13 @@ require('../layouts/header.php');
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="tanggal" class="form-label">Tanggal</label>
-                                                            <input type="date" id="tanggal" class="form-control" name="tanggal" required>
+                                                            <input type="date" id="tanggal" class="form-control" name="tanggal" value="<?= $pesanan['tanggal'] ?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="total" class="form-label">Total (Rp)</label>
-                                                            <input type="number" id="total" class="form-control" name="total" required>
+                                                            <input type="number" id="total" class="form-control" name="total" value="<?= $pesanan['total'] ?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -77,15 +78,15 @@ require('../layouts/header.php');
                                                             <label for="pelanggan_id" class="form-label">Pilih Nama Pelanggan</label>
                                                             <select id="pelanggan_id" class="form-select" name="pelanggan_id">
                                                                 <?php
-                                                                $data_pelanggan = $controller_pesanan->get_pelanggan();
+                                                                $data_pelanggan = $controller->get_pelanggan();
 
                                                                 foreach ($data_pelanggan as $pelanggan) : ?>
-                                                                    <option value="<?= $pelanggan['id'] ?>"><?= $pelanggan['nama_pelanggan'] ?></option>
+                                                                    <option value="<?= $pelanggan['id'] ?>" <?= $pelanggan['id'] == $pesanan['pelanggan_id'] ? 'selected' : '' ?> ><?= $pelanggan['nama_pelanggan'] ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary" id="btnSubmit" name="addBtnSubmit">Tambah</button>
+                                                    <button type="submit" class="btn btn-primary" id="btnSubmit" name="editBtnSubmit">Edit</button>
                                                 </div>
                                             </form>
                                         </div>

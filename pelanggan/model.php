@@ -27,6 +27,13 @@ class Pelanggan_model {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get_pelanggan_by_id($id)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM pelanggan WHERE id = $id");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function add_pelanggan($kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id)
     {
         $stmt = $this->dbh->prepare('INSERT INTO pelanggan (kode, nama_pelanggan, jk, tmp_lahir, tgl_lahir, email, kartu_id) VALUES (:kode, :nama_pelanggan, :jk, :tmp_lahir, :tgl_lahir, :email, :kartu_id)');

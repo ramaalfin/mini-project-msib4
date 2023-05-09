@@ -26,6 +26,13 @@ class Pesanan_model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get_pesanan_by_id($id)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM pesanan WHERE id = $id");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function add_pesanan($tanggal, $total, $pelanggan_id)
     {
         $stmt = $this->dbh->prepare('INSERT INTO pesanan (tanggal, total, pelanggan_id) VALUES (:tanggal, :total, :pelanggan_id)');

@@ -1,8 +1,8 @@
 <?php
 
-include('model.php');
-$model = new Pelanggan_model();
-$data_pelanggan = $model->get_pelanggan();
+require_once('controller.php');
+$controller = new Pelanggan_controller();
+$data_pelanggan = $controller->get_pelanggan();
 
 $title = 'Pelanggan';
 $active = "pelanggan";
@@ -74,7 +74,9 @@ require('../layouts/header.php');
                                                     <tbody class="table-border-bottom-0">
                                                         <?php foreach ($data_pelanggan as $row) : ?>
                                                             <tr>
-                                                                <td><?= $row['kode'] ?></td>
+                                                                <td>
+                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
+                                                                </td>
                                                                 <td><?= $row['nama_pelanggan'] ?></td>
                                                                 <td><?= $row['jk'] ?></td>
                                                                 <td><?= $row['tmp_lahir'] ?></td>

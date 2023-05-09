@@ -6,6 +6,11 @@ if (isset($_POST['addBtnSubmit'])) {
     $controller->add_pelanggan($_POST);
 }
 
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $pelanggan = $controller->get_pelanggan_by_id($id);
+}
+
 class Pelanggan_controller{
     private $model;
 
@@ -20,6 +25,11 @@ class Pelanggan_controller{
     public function get_kartu()
     {
         return $this->model->get_kartu();
+    }
+
+    public function get_pelanggan_by_id($id)
+    {
+        return $this->model->get_pelanggan_by_id($id);
     }
 
     public function add_pelanggan($data)

@@ -1,8 +1,8 @@
 <?php
-require_once('model.php');
+require_once('controller.php');
 
-$model = new Pesanan_model();
-$data_pesanan = $model->get_pesanan();
+$controller = new Pesanan_controller();
+$data_pesanan = $controller->get_pesanan();
 
 $title = 'Pesanan';
 $active = "pesanan";
@@ -70,7 +70,9 @@ require('../layouts/header.php');
                                                     <tbody class="table-border-bottom-0">
                                                         <?php foreach ($data_pesanan as $row) : ?>
                                                             <tr>
-                                                                <td><?= $row['tanggal'] ?></td>
+                                                                <td>
+                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['tanggal'] ?></a>
+                                                                </td>
                                                                 <td><?= $row['total'] ?></td>
                                                                 <td><?= $row['nama_pelanggan'] ?></td>
                                                             </tr>
