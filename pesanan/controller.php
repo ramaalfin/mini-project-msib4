@@ -11,6 +11,11 @@ if (isset($_GET['id'])) {
     $pesanan = $controller->get_pesanan_by_id($id);
 }
 
+if (isset($_POST['hapus_pesanan'])) {
+    $id = $_POST['id'];
+    $controller->hapus_pesanan($id);
+}
+
 class Pesanan_controller{
     private $model;
 
@@ -40,6 +45,18 @@ class Pesanan_controller{
 
         $this->model->add_pesanan($tanggal, $total, $pelanggan_id);
         header('Location: index.php');
+    }
+
+    public function hapus_pesanan($id)
+    {
+        $cekPelanggan = $this->model->cek_pelanggan($id);
+
+         if ($cekPelanggan) {
+            echo "Tidak bisa menghapus pesanan";
+        } else {
+            $this->model->hapus_pesanan($id);
+            header('Location: index.php');
+        }
     }
 }
 

@@ -13,18 +13,27 @@ if (isset($_GET['id'])) {
     $kartu = $controller->get_kartu_by_id($id);
 }
 
-class Kartu_controller {
+if (isset($_POST['hapus_kartu'])) {
+    $id = $_POST['id'];
+    $controller->hapus_kartu($id);
+}
+
+class Kartu_controller
+{
     private $model;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->model = new Kartu_model();
     }
 
-    public function get_kartu() {
+    public function get_kartu()
+    {
         return $this->model->get_kartu();
     }
 
-    public function get_kartu_by_id($id) {
+    public function get_kartu_by_id($id)
+    {
         return $this->model->get_kartu_by_id($id);
     }
 
@@ -38,6 +47,10 @@ class Kartu_controller {
         $this->model->add_kartu($kode, $nama, $diskon, $iuran);
         header('Location: index.php');
     }
-}
 
-?>
+    public function hapus_kartu($id)
+    {
+        $this->model->hapus_kartu($id);
+        header('Location: index.php');
+    }
+}

@@ -11,6 +11,11 @@ if (isset($_GET['id'])) {
     $pelanggan = $controller->get_pelanggan_by_id($id);
 }
 
+if (isset($_POST['hapus_pelanggan'])) {
+    $id = $_POST['id'];
+    $controller->hapus_pelanggan($id);
+}
+
 class Pelanggan_controller{
     private $model;
 
@@ -43,6 +48,12 @@ class Pelanggan_controller{
         $kartu_id = $data['kartu_id'];
 
         $this->model->add_pelanggan($kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id);
+        header('Location: index.php');
+    }
+
+    public function hapus_pelanggan($id)
+    {
+        $this->model->hapus_pelanggan($id);
         header('Location: index.php');
     }
 }

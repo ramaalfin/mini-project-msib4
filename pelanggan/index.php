@@ -22,9 +22,6 @@ require('../layouts/header.php');
         display: flex;
         justify-content: end;
     }
-    .table{
-        margin-bottom: 0px !important;
-    }
     .table > :not(:first-child) {
         border-top: unset;
     }
@@ -71,7 +68,7 @@ require('../layouts/header.php');
                                     <div class="col-sm-12">
                                         <div class="card-body">
                                             <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
-                                            <table id="example" class="table table-striped text-nowrap mb-3 mt-1" style="width:100%">
+                                            <table id="example" class="table table-striped text-nowrap mt-2" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th>Kode</th>
@@ -81,6 +78,7 @@ require('../layouts/header.php');
                                                         <th>Tanggal Lahir</th>
                                                         <th>Email</th>
                                                         <th>Kartu</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
@@ -95,6 +93,11 @@ require('../layouts/header.php');
                                                             <td><?= $row['tgl_lahir'] ?></td>
                                                             <td><?= $row['email'] ?></td>
                                                             <td><?= $row['kartu'] ?></td>
+                                                            <td>
+                                                                <button type="button" class="dropdown-item w-auto p-1 btn-delete" data-id="<?= $row['id'] ?>">
+                                                                    <i class="bx bx-trash"></i>
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -105,12 +108,6 @@ require('../layouts/header.php');
                             </div>
                         </div>
                     </div>
-
-                    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
-
-
-                    </div>
-
                 </div>
                 <!-- / Content -->
 
@@ -146,6 +143,30 @@ require('../layouts/header.php');
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
+<!-- modal delete -->
+<div class="modal fade" id="modalCenter" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">Hapus Pelanggan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Apakah Kamu yakin ingin menghapus pelanggan ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <form action="controller.php" method="post">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <input type="hidden" name="id" id="pelanggan-id">
+                    <button type="submit" class="btn btn-primary" name="hapus_pelanggan">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
 $src = [
     '../assets/vendor/libs/jquery/jquery.js',
@@ -168,6 +189,19 @@ $script = "
             paging: true,
             scrollX: true,
         });
+    });
+</script>
+
+<script>
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    const deletePelangganId = document.querySelector('#pelanggan-id');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const pelangganId = button.getAttribute('data-id');
+            deletePelangganId.value = pelangganId;
+            $('#modalCenter').modal('show');
+        })
     });
 </script>
 ";

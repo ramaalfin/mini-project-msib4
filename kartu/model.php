@@ -35,6 +35,13 @@ class Kartu_model {
         $stmt->bindParam(':iuran', $iuran);
         $stmt->execute();
     }
+
+    public function hapus_kartu($id)
+    {
+        $stmt = $this->dbh->prepare("DELETE FROM kartu WHERE id = ?");
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+    }
 }
 
 ?>

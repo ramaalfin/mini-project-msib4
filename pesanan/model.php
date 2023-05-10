@@ -33,12 +33,27 @@ class Pesanan_model{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function cek_pelanggan($id)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM pesanan WHERE pelanggan_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function add_pesanan($tanggal, $total, $pelanggan_id)
     {
         $stmt = $this->dbh->prepare('INSERT INTO pesanan (tanggal, total, pelanggan_id) VALUES (:tanggal, :total, :pelanggan_id)');
         $stmt->bindParam(':tanggal', $tanggal);
         $stmt->bindParam(':total', $total);
         $stmt->bindParam(':pelanggan_id', $pelanggan_id);
+        $stmt->execute();
+    }
+
+    public function hapus_pesanan($id)
+    {
+        $stmt = $this->dbh->prepare("DELETE FROM pesanan WHERE id = ?");
+        $stmt->bindParam(1, $id);
         $stmt->execute();
     }
 }

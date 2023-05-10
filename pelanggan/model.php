@@ -34,6 +34,22 @@ class Pelanggan_model {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function cek_kartu($id)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM kartu WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function cek_pesanan($id)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM pesanan WHERE pelanggan_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function add_pelanggan($kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id)
     {
         $stmt = $this->dbh->prepare('INSERT INTO pelanggan (kode, nama_pelanggan, jk, tmp_lahir, tgl_lahir, email, kartu_id) VALUES (:kode, :nama_pelanggan, :jk, :tmp_lahir, :tgl_lahir, :email, :kartu_id)');
@@ -44,6 +60,13 @@ class Pelanggan_model {
         $stmt->bindParam(':tgl_lahir', $tgl_lahir);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':kartu_id', $kartu_id);
+        $stmt->execute();
+    }
+
+    public function hapus_pelanggan($id)
+    {
+        $stmt = $this->dbh->prepare("DELETE FROM pelanggan WHERE id = ?");
+        $stmt->bindParam(1, $id);
         $stmt->execute();
     }
 }
