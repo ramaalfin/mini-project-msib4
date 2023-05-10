@@ -17,6 +17,19 @@ $href = [
 require('../layouts/header.php');
 ?>
 
+<style>
+    #example_filter {
+        display: flex;
+        justify-content: end;
+    }
+    .table{
+        margin-bottom: 0px !important;
+    }
+    .table > :not(:first-child) {
+        border-top: unset;
+    }
+</style>
+
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -58,28 +71,26 @@ require('../layouts/header.php');
                                     <div class="col-sm-12">
                                         <div class="card-body">
                                             <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
-                                            <div class="table-responsive text-nowrap">
-                                                <table id="example" class="table table-striped" style="width:100%">
-                                                    <thead>
+                                            <table id="example" class="table table-striped text-nowrap mb-3 mt-1" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tanggal</th>
+                                                        <th>Total</th>
+                                                        <th>Pelanggan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <?php foreach ($data_pesanan as $row) : ?>
                                                         <tr>
-                                                            <th>Tanggal</th>
-                                                            <th>Total</th>
-                                                            <th>Pelanggan</th>
+                                                            <td>
+                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['tanggal'] ?></a>
+                                                            </td>
+                                                            <td><?= $row['total'] ?></td>
+                                                            <td><?= $row['nama_pelanggan'] ?></td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        <?php foreach ($data_pesanan as $row) : ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['tanggal'] ?></a>
-                                                                </td>
-                                                                <td><?= $row['total'] ?></td>
-                                                                <td><?= $row['nama_pelanggan'] ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +153,16 @@ $src = [
     '../assets/js/config.js',
 ];
 
-$script = "";
+$script = "
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            paging: true,
+            scrollX: true,
+        });
+    });
+</script>
+";
 
 require('../layouts/footer.php')
 ?>

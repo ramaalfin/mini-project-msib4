@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('controller.php');
 
 $controller = new Kartu_controller();
@@ -16,6 +16,19 @@ $href = [
 ];
 require('../layouts/header.php');
 ?>
+
+<style>
+    #example_filter {
+        display: flex;
+        justify-content: end;
+    }
+    .table{
+        margin-bottom: 0px !important;
+    }
+    .table > :not(:first-child) {
+    border-top: unset;
+    }
+</style>
 
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -54,44 +67,35 @@ require('../layouts/header.php');
                     <div class="row">
                         <div class="col-lg-12 mb-4 order-0">
                             <div class="card">
-                                <div class="d-flex align-items-end row">
-                                    <div class="col-sm-12">
-                                        <div class="card-body">
-                                            <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
-                                            <div class="table-responsive text-nowrap">
-                                                <table id="example" class="table table-striped" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Kode</th>
-                                                            <th>Nama</th>
-                                                            <th>Diskon</th>
-                                                            <th>Iuran</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        <?php foreach ($data_kartu as $row) : ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
-                                                                </td>
-                                                                <td><?= $row['nama'] ?></td>
-                                                                <td><?= $row['diskon'] ?></td>
-                                                                <td><?= $row['iuran'] ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                <div class="d-flex align-items-start row">
+                                    <div class="card-body">
+                                        <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
+                                        <table id="example" class="table table-striped text-nowrap mb-3 mt-1" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kode</th>
+                                                    <th>Nama</th>
+                                                    <th>Diskon</th>
+                                                    <th>Iuran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                                <?php foreach ($data_kartu as $row) : ?>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
+                                                        </td>
+                                                        <td><?= $row['nama'] ?></td>
+                                                        <td><?= $row['diskon'] ?></td>
+                                                        <td><?= $row['iuran'] ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
-                        
-
                     </div>
 
                 </div>
@@ -134,17 +138,23 @@ $src = [
     '../assets/vendor/libs/jquery/jquery.js',
     '../assets/vendor/libs/popper/popper.js',
     '../assets/vendor/js/bootstrap.js',
-    '../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
-    '../assets/vendor/js/menu.js',
-    '../assets/js/main.js',
     '../assets/vendor/js/jquery.dataTables.min.js',
     '../assets/vendor/js/dataTables.bootstrap5.min.js',
+    '../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
     'https://buttons.github.io/buttons.js',
-    '../assets/vendor/js/helpers.js',
-    '../assets/js/config.js',
 ];
 
-$script = "";
+$script = "
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            paging: true,
+            scrollX: true,
+
+        });
+    });
+</script>
+";
 
 require('../layouts/footer.php')
 ?>

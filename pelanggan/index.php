@@ -17,6 +17,19 @@ $href = [
 require('../layouts/header.php');
 ?>
 
+<style>
+    #example_filter {
+        display: flex;
+        justify-content: end;
+    }
+    .table{
+        margin-bottom: 0px !important;
+    }
+    .table > :not(:first-child) {
+        border-top: unset;
+    }
+</style>
+
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -58,36 +71,34 @@ require('../layouts/header.php');
                                     <div class="col-sm-12">
                                         <div class="card-body">
                                             <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
-                                            <div class="table-responsive text-nowrap">
-                                                <table id="example" class="table table-striped" style="width:100%">
-                                                    <thead>
+                                            <table id="example" class="table table-striped text-nowrap mb-3 mt-1" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kode</th>
+                                                        <th>Nama Pelanggan</th>
+                                                        <th>Jenis Kelamin</th>
+                                                        <th>Tempat Lahir</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Email</th>
+                                                        <th>Kartu</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    <?php foreach ($data_pelanggan as $row) : ?>
                                                         <tr>
-                                                            <th>Kode</th>
-                                                            <th>Nama Pelanggan</th>
-                                                            <th>Jenis Kelamin</th>
-                                                            <th>Tempat Lahir</th>
-                                                            <th>Tanggal Lahir</th>
-                                                            <th>Email</th>
-                                                            <th>Kartu</th>
+                                                            <td>
+                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
+                                                            </td>
+                                                            <td><?= $row['nama_pelanggan'] ?></td>
+                                                            <td><?= $row['jk'] ?></td>
+                                                            <td><?= $row['tmp_lahir'] ?></td>
+                                                            <td><?= $row['tgl_lahir'] ?></td>
+                                                            <td><?= $row['email'] ?></td>
+                                                            <td><?= $row['kartu'] ?></td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                        <?php foreach ($data_pelanggan as $row) : ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
-                                                                </td>
-                                                                <td><?= $row['nama_pelanggan'] ?></td>
-                                                                <td><?= $row['jk'] ?></td>
-                                                                <td><?= $row['tmp_lahir'] ?></td>
-                                                                <td><?= $row['tgl_lahir'] ?></td>
-                                                                <td><?= $row['email'] ?></td>
-                                                                <td><?= $row['kartu'] ?></td>
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +161,16 @@ $src = [
     '../assets/js/config.js',
 ];
 
-$script = "";
+$script = "
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            paging: true,
+            scrollX: true,
+        });
+    });
+</script>
+";
 
 require('../layouts/footer.php')
 ?>
