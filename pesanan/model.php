@@ -50,6 +50,16 @@ class Pesanan_model{
         $stmt->execute();
     }
 
+    public function edit_pesanan($id, $tanggal, $total, $pelanggan_id)
+    {
+        $stmt = $this->dbh->prepare('UPDATE pesanan SET tanggal=:tanggal, total=:total, pelanggan_id=:pelanggan_id WHERE id=:id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':tanggal', $tanggal);
+        $stmt->bindParam(':total', $total);
+        $stmt->bindParam(':pelanggan_id', $pelanggan_id);
+        $stmt->execute();
+    }
+
     public function hapus_pesanan($id)
     {
         $stmt = $this->dbh->prepare("DELETE FROM pesanan WHERE id = ?");

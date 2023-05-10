@@ -36,6 +36,17 @@ class Kartu_model {
         $stmt->execute();
     }
 
+    public function edit_kartu($id, $kode, $nama, $diskon, $iuran)
+    {
+        $stmt = $this->dbh->prepare('UPDATE kartu SET kode=:kode, nama=:nama, diskon=:diskon, iuran=:iuran WHERE id=:id');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':kode', $kode);
+        $stmt->bindParam(':nama', $nama);
+        $stmt->bindParam(':diskon', $diskon);
+        $stmt->bindParam(':iuran', $iuran);
+        $stmt->execute();
+    }
+
     public function hapus_kartu($id)
     {
         $stmt = $this->dbh->prepare("DELETE FROM kartu WHERE id = ?");

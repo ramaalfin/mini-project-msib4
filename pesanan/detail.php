@@ -58,9 +58,10 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary ms-2">Tambah Pesanan</h5>
+                                            <h5 class="card-title text-primary ms-2">Detail Pesanan</h5>
                                             <form action="controller.php" method="POST">
                                                 <div class="p-2">
+                                                <input type="hidden" name="id" value="<?= $pesanan['id'] ?>">
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="tanggal" class="form-label">Tanggal</label>
@@ -70,7 +71,7 @@ require('../layouts/header.php');
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="total" class="form-label">Total (Rp)</label>
-                                                            <input type="number" id="total" class="form-control" name="total" value="<?= $pesanan['total'] ?>" required>
+                                                            <input type="number" id="total" class="form-control" name="total" value="<?= $pesanan['total'] ?>" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="row">

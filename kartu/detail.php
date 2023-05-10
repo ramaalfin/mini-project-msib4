@@ -63,6 +63,7 @@ require('../layouts/header.php');
                                             <h5 class="card-title text-primary ms-2">Detail Kartu</h5>
                                             <form action="controller.php" method="POST">
                                                 <div class="p-2">
+                                                    <input type="hidden" name="id" value="<?= $kartu['id'] ?>">
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="kode" class="form-label">Kode Kartu (Maks. 6 karakter)</label>

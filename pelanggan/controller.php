@@ -2,13 +2,17 @@
 require_once 'model.php';
 $controller = new Pelanggan_controller();
 if (isset($_POST['addBtnSubmit'])) {
-    // panggil method pada controller untuk menyimpan data kartu yang dikirim dari form
     $controller->add_pelanggan($_POST);
 }
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $pelanggan = $controller->get_pelanggan_by_id($id);
+}
+
+if (isset($_POST['editBtnSubmit'])) {
+    $id = $_POST['id'];
+    $controller->edit_pelanggan($id, $_POST);
 }
 
 if (isset($_POST['hapus_pelanggan'])) {
@@ -48,6 +52,20 @@ class Pelanggan_controller{
         $kartu_id = $data['kartu_id'];
 
         $this->model->add_pelanggan($kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id);
+        header('Location: index.php');
+    }
+
+    public function edit_pelanggan($id, $data)
+    {
+        $kode = $data['kode'];
+        $nama_pelanggan = $data['nama_pelanggan'];
+        $jk = $data['jk'];
+        $tmp_lahir = $data['tmp_lahir'];
+        $tgl_lahir = $data['tgl_lahir'];
+        $email = $data['email'];
+        $kartu_id = $data['kartu_id'];
+
+        $this->model->edit_pelanggan($id, $kode, $nama_pelanggan, $jk, $tmp_lahir, $tgl_lahir, $email, $kartu_id);
         header('Location: index.php');
     }
 

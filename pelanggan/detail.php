@@ -61,9 +61,10 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary ms-2">Tambah Pelanggan</h5>
+                                            <h5 class="card-title text-primary ms-2">Detail Pelanggan</h5>
                                             <form action="controller.php" method="POST">
                                                 <div class="p-2">
+                                                    <input type="hidden" name="id" value="<?= $pelanggan['id'] ?>">
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="kode" class="form-label">Kode (Maks. 10 karakter)</label>

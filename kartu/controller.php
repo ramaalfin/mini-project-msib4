@@ -13,6 +13,11 @@ if (isset($_GET['id'])) {
     $kartu = $controller->get_kartu_by_id($id);
 }
 
+if (isset($_POST['editBtnSubmit'])) {
+    $id = $_POST['id'];
+    $controller->edit_kartu($id, $_POST);
+}
+
 if (isset($_POST['hapus_kartu'])) {
     $id = $_POST['id'];
     $controller->hapus_kartu($id);
@@ -45,6 +50,17 @@ class Kartu_controller
         $iuran = $data['iuran'];
 
         $this->model->add_kartu($kode, $nama, $diskon, $iuran);
+        header('Location: index.php');
+    }
+
+    public function edit_kartu($id, $data)
+    {
+        $kode = $data['kode'];
+        $nama = $data['nama'];
+        $diskon = $data['diskon'];
+        $iuran = $data['iuran'];
+        
+        $this->model->edit_kartu($id, $kode, $nama, $diskon, $iuran);
         header('Location: index.php');
     }
 

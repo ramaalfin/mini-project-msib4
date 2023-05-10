@@ -11,6 +11,11 @@ if (isset($_GET['id'])) {
     $pesanan = $controller->get_pesanan_by_id($id);
 }
 
+if (isset($_POST['editBtnSubmit'])) {
+    $id = $_POST['id'];
+    $controller->edit_pesanan($id, $_POST);
+}
+
 if (isset($_POST['hapus_pesanan'])) {
     $id = $_POST['id'];
     $controller->hapus_pesanan($id);
@@ -44,6 +49,16 @@ class Pesanan_controller{
         $pelanggan_id = $data['pelanggan_id'];
 
         $this->model->add_pesanan($tanggal, $total, $pelanggan_id);
+        header('Location: index.php');
+    }
+
+    public function edit_pesanan($id, $data)
+    {
+        $tanggal = $data['tanggal'];
+        $total = $data['total'];
+        $pelanggan_id = $data['pelanggan_id'];
+
+        $this->model->edit_pesanan($id, $tanggal, $total, $pelanggan_id);
         header('Location: index.php');
     }
 
