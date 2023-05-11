@@ -1,8 +1,9 @@
 <?php
-session_start();
 require_once('controller.php');
 $controller = new Pelanggan_controller();
 $data_pelanggan = $controller->get_pelanggan();
+
+
 
 $title = 'Pelanggan';
 $active = "pelanggan";
@@ -26,7 +27,13 @@ require('../layouts/header.php');
         border-top: unset;
     }
 </style>
+<?php 
 
+if (isset($_SESSION['welcome_message'])) {
+    echo $_SESSION['welcome_message'];
+    unset($_SESSION['welcome_message']);
+}
+?>
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->

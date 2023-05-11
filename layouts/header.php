@@ -48,7 +48,7 @@
 					</button>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto">
+						<ul class="nav navbar-nav menu_nav ml-auto align-items-center">
 							<li class="nav-item active"><a class="nav-link" href="index.php?hal=home">Home</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -69,11 +69,13 @@
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
 							<?php if (isset($_SESSION['user'])) : ?>
-								<form action="../auth.php" method="POST" class="nav-link">
-									<button type="submit" name="logout" class="btn p-0">Logout</button>
-								</form>
+								<li class="nav-item">
+									<form action="auth.php" method="POST">
+										<button type="submit" name="logout" class="btn nav-link bg-transparent">Logout</button>
+									</form>
+								</li>
 							<?php else : ?>
-								<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
 							<?php endif; ?>
 							
 						</ul>

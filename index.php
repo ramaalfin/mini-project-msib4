@@ -4,7 +4,6 @@ include_once 'layouts/header.php';
 require_once 'koneksi.php';
 
 ?>
-
 <section class="banner-area">
 		<div class="container">
 			<div class="row fullscreen align-items-center justify-content-start">
