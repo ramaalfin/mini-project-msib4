@@ -1,4 +1,5 @@
 <?php 
+
 $dbname = "dbpos2";
 $dsn = 'mysql:dbname='.$dbname.'; host:host=localhost';
 $user = 'root';

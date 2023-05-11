@@ -66,12 +66,12 @@
                     <div>Kartu</div>
                 </a>
             </li>
-            <!-- <li class="menu-item">
-                <form action="../logout.php" method="POST" class="menu-link">
+            <li class="menu-item">
+                <form action="../../auth.php" method="POST" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-archive-in'></i>
                     <button type="submit" name="logout" class="btn p-0">Logout</button>
                 </form>
-            </li> -->
+            </li>
         <?php } ?>
     </ul>
 </aside>

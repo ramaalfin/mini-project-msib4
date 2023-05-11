@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once('controller.php');
 $controller = new Pelanggan_controller();
 $data_pelanggan = $controller->get_pelanggan();
