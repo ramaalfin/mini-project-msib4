@@ -42,6 +42,8 @@ if (isset($_SESSION['welcome_message'])) {
             '../pelanggan/index.php',
             '../pesanan/index.php',
             '../kartu/index.php',
+            '../jenis_produk/index.php',
+            '../produk/index.php',
         ];
         require('../layouts/aside.php')
         ?>

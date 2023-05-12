@@ -27,7 +27,7 @@ class Kartu_model {
     }
 
     public function add_kartu($kode, $nama, $diskon, $iuran)
-    {
+    {   
         $stmt = $this->dbh->prepare('INSERT INTO kartu (kode, nama, diskon, iuran) VALUES (:kode, :nama, :diskon, :iuran)');
         $stmt->bindParam(':kode', $kode);
         $stmt->bindParam(':nama', $nama);

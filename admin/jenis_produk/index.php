@@ -1,11 +1,11 @@
 <?php
 require_once('controller.php');
 
-$controller = new Pesanan_controller();
-$data_pesanan = $controller->get_pesanan();
+$controller = new JenisProduk_controller();
+$data_jenis_produk = $controller->get_jenis_produk();
 
-$title = 'Pesanan';
-$active = "pesanan";
+$title = 'Jenis Produk';
+$active = "jenis_produk";
 $href = [
     '../assets/vendor/fonts/boxicons.css',
     '../assets/vendor/css/core.css',
@@ -23,7 +23,7 @@ require('../layouts/header.php');
         justify-content: end;
     }
     .table > :not(:first-child) {
-        border-top: unset;
+    border-top: unset;
     }
 </style>
 
@@ -66,27 +66,23 @@ require('../layouts/header.php');
                     <div class="row">
                         <div class="col-lg-12 mb-4 order-0">
                             <div class="card">
-                                <div class="d-flex align-items-end row">
+                                <div class="d-flex align-items-start row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
                                             <a href="tambah.php" class="btn btn-primary mb-4">Tambah</a>
                                             <table id="example" class="table table-striped text-nowrap mt-2" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Tanggal</th>
-                                                        <th>Total</th>
-                                                        <th>Pelanggan</th>
+                                                        <th>Nama</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
-                                                    <?php foreach ($data_pesanan as $row) : ?>
+                                                    <?php foreach ($data_jenis_produk as $row) : ?>
                                                         <tr>
                                                             <td>
-                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['tanggal'] ?></a>
+                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['nama'] ?></a>
                                                             </td>
-                                                            <td><?= $row['total'] ?></td>
-                                                            <td><?= $row['nama_pelanggan'] ?></td>
                                                             <td class="d-flex gap-2 ">
                                                                 <button type="button" class="dropdown-item w-auto p-1 btn-delete" data-id="<?= $row['id'] ?>">
                                                                     <i class="bx bx-trash"></i>
@@ -97,11 +93,13 @@ require('../layouts/header.php');
                                                 </tbody>
                                             </table>
                                         </div>
+                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- / Content -->
 
@@ -142,19 +140,19 @@ require('../layouts/header.php');
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Hapus Pesanan</h5>
+                <h5 class="modal-title" id="modalCenterTitle">Hapus Jenis Produk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5>Apakah Kamu yakin ingin menghapus pesanan ini?</h5>
+                <h5>Apakah Kamu yakin ingin menghapus Jenis Produk ini?</h5>
             </div>
             <div class="modal-footer">
                 <form action="controller.php" method="post">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <input type="hidden" name="id" id="pesanan-id">
-                    <button type="submit" class="btn btn-primary" name="hapus_pesanan">Save changes</button>
+                    <input type="hidden" name="id" id="jenis_produk-id">
+                    <button type="submit" class="btn btn-primary" name="hapus_jenis_produk">Save changes</button>
                 </form>
             </div>
         </div>
@@ -166,14 +164,10 @@ $src = [
     '../assets/vendor/libs/jquery/jquery.js',
     '../assets/vendor/libs/popper/popper.js',
     '../assets/vendor/js/bootstrap.js',
-    '../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
-    '../assets/vendor/js/menu.js',
-    '../assets/js/main.js',
     '../assets/vendor/js/jquery.dataTables.min.js',
     '../assets/vendor/js/dataTables.bootstrap5.min.js',
+    '../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
     'https://buttons.github.io/buttons.js',
-    '../assets/vendor/js/helpers.js',
-    '../assets/js/config.js',
 ];
 
 $script = "
@@ -182,18 +176,18 @@ $script = "
         $('#example').DataTable({
             paging: true,
             scrollX: true,
+
         });
     });
 </script>
-
 <script>
     const deleteButtons = document.querySelectorAll('.btn-delete');
-    const deletePesananId = document.querySelector('#pesanan-id');
+    const deleteJenisProdukId = document.querySelector('#jenis_produk-id');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const pesananId = button.getAttribute('data-id');
-            deletePesananId.value = pesananId;
+            const JenisProdukId = button.getAttribute('data-id');
+            deleteJenisProdukId.value = JenisProdukId;
             $('#modalCenter').modal('show');
         })
     });

@@ -66,6 +66,18 @@
                     <div>Kartu</div>
                 </a>
             </li>
+            <li class="menu-item <?php echo ($active == 'jenis_produk' ? 'active' : '') ?>">
+                <a href="<?= $href[3] ?>" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div>Jenis Produk</div>
+                </a>
+            </li>
+            <li class="menu-item <?php echo ($active == 'produk' ? 'active' : '') ?>">
+                <a href="<?= $href[4] ?>" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div>Produk</div>
+                </a>
+            </li>
             <li class="menu-item">
                 <form action="../../auth.php" method="POST" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-archive-in'></i>

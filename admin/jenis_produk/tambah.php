@@ -1,11 +1,9 @@
 <?php
 require_once('controller.php');
+$controller = new JenisProduk_controller();
 
-$controller_pesanan = new Pesanan_controller();
-$data_pesanan = $controller_pesanan->get_pesanan();
-
-$title = 'Pesanan';
-$active = "pesanan";
+$title = 'Tambah jenis produk';
+$active = "jenis_produk";
 $href = [
     '../assets/vendor/fonts/boxicons.css',
     '../assets/vendor/css/core.css',
@@ -59,32 +57,13 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary ms-2">Tambah Pesanan</h5>
+                                            <h5 class="card-title text-primary ms-2">Tambah Jenis Produk</h5>
                                             <form action="controller.php" method="POST">
                                                 <div class="p-2">
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="tanggal" class="form-label">Tanggal</label>
-                                                            <input type="date" id="tanggal" class="form-control" name="tanggal" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col mb-3">
-                                                            <label for="total" class="form-label">Total (Rp)</label>
-                                                            <input type="number" id="total" class="form-control" name="total" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col mb-3">
-                                                            <label for="pelanggan_id" class="form-label">Pilih Nama Pelanggan</label>
-                                                            <select id="pelanggan_id" class="form-select" name="pelanggan_id">
-                                                                <?php
-                                                                $data_pelanggan = $controller_pesanan->get_pelanggan();
-
-                                                                foreach ($data_pelanggan as $pelanggan) : ?>
-                                                                    <option value="<?= $pelanggan['id'] ?>"><?= $pelanggan['nama_pelanggan'] ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
+                                                            <label for="nama" class="form-label">Nama</label>
+                                                            <input type="text" id="nama" class="form-control" name="nama" placeholder="Nama" required>
                                                         </div>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary" id="btnSubmit" name="addBtnSubmit">Tambah</button>

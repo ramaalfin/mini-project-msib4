@@ -1,11 +1,10 @@
 <?php
 require_once('controller.php');
+$controller = new Produk_controller();
+$data_produk = $controller->get_produk();
 
-$controller = new Pesanan_controller();
-$data_pesanan = $controller->get_pesanan();
-
-$title = 'Pesanan';
-$active = "pesanan";
+$title = 'Produk';
+$active = "produk";
 $href = [
     '../assets/vendor/fonts/boxicons.css',
     '../assets/vendor/css/core.css',
@@ -26,7 +25,13 @@ require('../layouts/header.php');
         border-top: unset;
     }
 </style>
+<?php 
 
+if (isset($_SESSION['welcome_message'])) {
+    echo $_SESSION['welcome_message'];
+    unset($_SESSION['welcome_message']);
+}
+?>
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -73,21 +78,29 @@ require('../layouts/header.php');
                                             <table id="example" class="table table-striped text-nowrap mt-2" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Tanggal</th>
-                                                        <th>Total</th>
-                                                        <th>Pelanggan</th>
+                                                        <th>Kode</th>
+                                                        <th>Nama Produk</th>
+                                                        <th>Harga Beli</th>
+                                                        <th>Harga Jual</th>
+                                                        <th>Stok</th>
+                                                        <th>Minimal Stok</th>
+                                                        <th>Jenis Produk</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
-                                                    <?php foreach ($data_pesanan as $row) : ?>
+                                                    <?php foreach ($data_produk as $row) : ?>
                                                         <tr>
                                                             <td>
-                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['tanggal'] ?></a>
+                                                                <a href="detail.php?id=<?= $row['id'] ?>"><?= $row['kode'] ?></a>
                                                             </td>
-                                                            <td><?= $row['total'] ?></td>
-                                                            <td><?= $row['nama_pelanggan'] ?></td>
-                                                            <td class="d-flex gap-2 ">
+                                                            <td><?= $row['nama'] ?></td>
+                                                            <td><?= $row['harga_beli'] ?></td>
+                                                            <td><?= $row['harga_jual'] ?></td>
+                                                            <td><?= $row['stok'] ?></td>
+                                                            <td><?= $row['min_stok'] ?></td>
+                                                            <td><?= $row['jenis_produk'] ?></td>
+                                                            <td>
                                                                 <button type="button" class="dropdown-item w-auto p-1 btn-delete" data-id="<?= $row['id'] ?>">
                                                                     <i class="bx bx-trash"></i>
                                                                 </button>
@@ -142,19 +155,19 @@ require('../layouts/header.php');
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Hapus Pesanan</h5>
+                <h5 class="modal-title" id="modalCenterTitle">Hapus Produk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5>Apakah Kamu yakin ingin menghapus pesanan ini?</h5>
+                <h5>Apakah Kamu yakin ingin menghapus produk ini?</h5>
             </div>
             <div class="modal-footer">
                 <form action="controller.php" method="post">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <input type="hidden" name="id" id="pesanan-id">
-                    <button type="submit" class="btn btn-primary" name="hapus_pesanan">Save changes</button>
+                    <input type="hidden" name="id" id="produk-id">
+                    <button type="submit" class="btn btn-primary" name="hapus_produk">Save changes</button>
                 </form>
             </div>
         </div>
@@ -188,12 +201,12 @@ $script = "
 
 <script>
     const deleteButtons = document.querySelectorAll('.btn-delete');
-    const deletePesananId = document.querySelector('#pesanan-id');
+    const deleteProdukId = document.querySelector('#produk-id');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const pesananId = button.getAttribute('data-id');
-            deletePesananId.value = pesananId;
+            const produkId = button.getAttribute('data-id');
+            deleteProdukId.value = produkId;
             $('#modalCenter').modal('show');
         })
     });

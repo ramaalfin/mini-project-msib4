@@ -1,10 +1,9 @@
 <?php
+require_once('controller.php');
+$controller = new Produk_controller();
 
-include('controller.php');
-$controller = new Pelanggan_controller();
-
-$title = 'Pelanggan';
-$active = "pelanggan";
+$title = 'Tambah Produk';
+$active = "produk";
 $href = [
     '../assets/vendor/fonts/boxicons.css',
     '../assets/vendor/css/core.css',
@@ -16,6 +15,23 @@ $href = [
 require('../layouts/header.php');
 ?>
 
+<style>
+    #example_filter {
+        display: flex;
+        justify-content: end;
+    }
+
+    .table> :not(:first-child) {
+        border-top: unset;
+    }
+</style>
+<?php
+
+if (isset($_SESSION['welcome_message'])) {
+    echo $_SESSION['welcome_message'];
+    unset($_SESSION['welcome_message']);
+}
+?>
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -58,65 +74,55 @@ require('../layouts/header.php');
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-12">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary ms-2">Tambah Pelanggan</h5>
+                                            <h5 class="card-title text-primary ms-2">Tambah Produk</h5>
                                             <form action="controller.php" method="POST">
                                                 <div class="p-2">
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="kode" class="form-label">Kode (Maks. 10 karakter)</label>
-                                                            <input type="text" id="kode" class="form-control" name="kode" placeholder="ex. C000" maxlength="10" required>
+                                                            <label for="kode" class="form-label">Kode Produk (Maks. 10 karakter)</label>
+                                                            <input type="text" id="kode" class="form-control" name="kode" placeholder="..." maxlength="10" required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                                                            <input type="text" id="nama_pelanggan" class="form-control" name="nama_pelanggan" placeholder="ex. Rama" required>
+                                                            <label for="nama" class="form-label">Nama Produk</label>
+                                                            <input type="text" id="nama" class="form-control" name="nama" placeholder="Nama" required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="jk" class="form-label">Jenis Kelamin</label>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="jk" id="laki_laki" value="L" required>
-                                                                <label class="form-check-label" for="laki_laki">
-                                                                    Laki-laki
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="jk" id="perempuan" value="P" required>
-                                                                <label class="form-check-label" for="perempuan">
-                                                                    Perempuan
-                                                                </label>
-                                                            </div>
+                                                            <label for="harga_beli" class="form-label">Harga Beli (Rp)</label>
+                                                            <input type="number" id="harga_beli" class="form-control" name="harga_beli" placeholder="..." required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="tmp_lahir" class="form-label">Tempat Lahir</label>
-                                                            <input type="text" id="tmp_lahir" class="form-control" name="tmp_lahir" placeholder="ex. Jakarta" required>
+                                                            <label for="harga_jual" class="form-label">Harga Jual (Rp)</label>
+                                                            <input type="number" id="harga_jual" class="form-control" name="harga_jual" placeholder="..." required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
-                                                            <input type="date" id="tgl_lahir" class="form-control" name="tgl_lahir" required>
+                                                            <label for="stok" class="form-label">Stok</label>
+                                                            <input type="number" id="stok" class="form-control" name="stok" placeholder="..." required>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="email" class="form-label">Alamat Email</label>
-                                                            <input type="email" id="email" class="form-control" name="email" required>
+                                                            <label for="min_stok" class="form-label">Minimal Stok</label>
+                                                            <input type="number" id="min_stok" class="form-control" name="min_stok" placeholder="..." required>
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="kartu_id" class="form-label">Kartu Pelanggan</label>
-                                                            <select id="kartu_id" class="form-select" name="kartu_id">
+                                                            <label for="jenis_produk_id" class="form-label">Jenis Produk</label>
+                                                            <select id="jenis_produk_id" class="form-select" name="jenis_produk_id">
                                                                 <?php
-                                                                $data_kartu = $controller->get_kartu();
+                                                                $data_jenis_produk = $controller->get_jenis_produk();
 
-                                                                foreach ($data_kartu as $kartu) : ?>
-                                                                    <option value="<?= $kartu['id'] ?>"><?= $kartu['nama'] ?></option>
+                                                                foreach ($data_jenis_produk as $jenis_produk) : ?>
+                                                                    <option value="<?= $jenis_produk['id'] ?>"><?= $jenis_produk['nama'] ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -130,12 +136,6 @@ require('../layouts/header.php');
                             </div>
                         </div>
                     </div>
-
-                    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
-
-
-                    </div>
-
                 </div>
                 <!-- / Content -->
 
@@ -171,6 +171,30 @@ require('../layouts/header.php');
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
+<!-- modal delete -->
+<!-- <div class="modal fade" id="modalCenter" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">Hapus Pelanggan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Apakah Kamu yakin ingin menghapus pelanggan ini?</h5>
+            </div>
+            <div class="modal-footer">
+                <form action="controller.php" method="post">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <input type="hidden" name="id" id="pelanggan-id">
+                    <button type="submit" class="btn btn-primary" name="hapus_pelanggan">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
 <?php
 $src = [
     '../assets/vendor/libs/jquery/jquery.js',
@@ -186,7 +210,29 @@ $src = [
     '../assets/js/config.js',
 ];
 
-$script = "";
+$script = "
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            paging: true,
+            scrollX: true,
+        });
+    });
+</script>
+
+<script>
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    const deletePelangganId = document.querySelector('#pelanggan-id');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const pelangganId = button.getAttribute('data-id');
+            deletePelangganId.value = pelangganId;
+            $('#modalCenter').modal('show');
+        })
+    });
+</script>
+";
 
 require('../layouts/footer.php')
 ?>

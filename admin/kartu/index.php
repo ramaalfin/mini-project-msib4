@@ -35,6 +35,8 @@ require('../layouts/header.php');
             '../pelanggan/index.php',
             '../pesanan/index.php',
             '../kartu/index.php',
+            '../jenis_produk/index.php',
+            '../produk/index.php',
         ];
         require('../layouts/aside.php')
         ?>
