@@ -175,35 +175,30 @@ $data_produk = $controller->get_produk();
 	<!-- End category Area -->
 
 	<!-- start product Area -->
-	<section class="owl-carousel active-product-area section_gap">
+	<section>
 		<!-- single product slide -->
-		<div class="single-product-slider">
+		<div>
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-6 text-center">
 						<div class="section-title">
-							<h1>Latest Products</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore
-								magna aliqua.</p>
+							<h1>Our Products</h1>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 						</div>
 					</div>
 				</div>
-                
+				<?php foreach($data_produk as $produk) : ?>
 				<div class="row">
-					<?php foreach($data_produk as $produk) : ?>                  
 					<!-- single product -->
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="assets/img/product/p2.jpg" alt="">
+							<img class="img-fluid" src="assets/img/product/p6.jpg" alt="">
 							<div class="product-details">
 								<h6><?= $produk['nama'] ?></h6>
 								<div class="price">
-									<h6>$150.00</h6>
-									<h6 class="l-through">$210.00</h6>
+									<h6>Rp <?= number_format($produk['harga_jual']) ?></h6>
 								</div>
 								<div class="prd-bottom">
-
 									<a href="" class="social-info">
 										<span class="ti-bag"></span>
 										<p class="hover-text">add to bag</p>
@@ -224,10 +219,11 @@ $data_produk = $controller->get_produk();
 							</div>
 						</div>
 					</div>
-					<?php endforeach ?>
 				</div>
+				<?php endforeach?>
 			</div>
-		</div>	
+		</div>
+	
 	</section>
 	<!-- end product Area -->
 

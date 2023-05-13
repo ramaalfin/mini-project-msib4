@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 11, 2023 at 12:45 AM
+-- Generation Time: May 13, 2023 at 01:44 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `jenis_produk` (
   `id` int NOT NULL,
-  `nama` varchar(45) DEFAULT NULL
+  `nama` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -37,11 +37,10 @@ CREATE TABLE `jenis_produk` (
 --
 
 INSERT INTO `jenis_produk` (`id`, `nama`) VALUES
-(1, 'elektronik'),
-(2, 'furniture'),
-(3, 'makanan'),
-(4, 'minuman'),
-(5, 'komputer');
+(11, 'Elektronik'),
+(12, 'Furniture'),
+(13, 'Makanan'),
+(14, 'Minuman');
 
 -- --------------------------------------------------------
 
@@ -62,8 +61,7 @@ CREATE TABLE `kartu` (
 --
 
 INSERT INTO `kartu` (`id`, `kode`, `nama`, `diskon`, `iuran`) VALUES
-(6, 'K001', 'Platinum', 20, 300000),
-(7, 'K002', 'Gold', 15, 200);
+(6, 'K001', 'Platinum', 20, 300000);
 
 -- --------------------------------------------------------
 
@@ -87,8 +85,7 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id`, `kode`, `nama_pelanggan`, `jk`, `tmp_lahir`, `tgl_lahir`, `email`, `kartu_id`) VALUES
-(17, 'A001', 'Rama test', 'L', 'jakarta', '2001-01-01', 'rama@gmail.com', 6),
-(19, 'A002', 'Alfin', 'L', 'Jakarta', '2001-12-31', 'alfinrama1@gmail.com', 7);
+(17, 'A001', 'Rama test', 'L', 'jakarta', '2001-01-01', 'rama@gmail.com', 6);
 
 -- --------------------------------------------------------
 
@@ -121,17 +118,6 @@ CREATE TABLE `pembelian` (
   `harga` double DEFAULT NULL,
   `vendor_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `pembelian`
---
-
-INSERT INTO `pembelian` (`id`, `tanggal`, `nomor`, `produk_id`, `jumlah`, `harga`, `vendor_id`) VALUES
-(1, '2019-10-10', 'P001', 1, 2, 3500000, 1),
-(2, '2019-11-20', 'P002', 2, 5, 5500000, 2),
-(3, '2019-12-12', 'P003', 2, 5, 5400000, 1),
-(4, '2020-01-20', 'P004', 7, 200, 1800, 3),
-(5, '2020-01-20', 'P005', 5, 100, 2300, 3);
 
 -- --------------------------------------------------------
 
@@ -174,14 +160,14 @@ CREATE TABLE `pesanan_items` (
 -- (See below for the actual view)
 --
 CREATE TABLE `pesanan_produk_vw` (
-`pesanan_id` int
-,`tanggal` date
-,`pelanggan_kode` varchar(10)
+`harga_jual` double
 ,`nama_pelanggan` varchar(45)
-,`produk_kode` varchar(10)
 ,`nama_produk` varchar(45)
+,`pelanggan_kode` varchar(10)
+,`pesanan_id` int
+,`produk_kode` varchar(10)
 ,`qty` int
-,`harga_jual` double
+,`tanggal` date
 ,`total_harga` double
 );
 
@@ -207,19 +193,7 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `kode`, `nama`, `harga_beli`, `harga_jual`, `stok`, `min_stok`, `jenis_produk_id`) VALUES
-(1, 'TV01', 'Televisi 21 inch', 3500000, 5040000, 5, 2, 1),
-(2, 'TV02', 'Televisi 40 inch', 5500000, 7440000, 4, 2, 1),
-(3, 'K001', 'Kulkas 2 pintu', 3500000, 4680000, 6, 2, 1),
-(4, 'M001', 'Meja Makan', 500000, 600000, 4, 3, 2),
-(5, 'TK01', 'Teh Kotak', 3000, 3500, 6, 10, 4),
-(6, 'PC01', 'PC Desktop HP', 7000000, 9600000, 9, 2, 5),
-(7, 'TB01', 'Teh Botol', 2000, 2500, 53, 10, 4),
-(8, 'AC01', 'Notebook Acer', 8000000, 10800000, 7, 2, 5),
-(9, 'LN01', 'Notebook Lenovo', 9000000, 12000000, 9, 2, 5),
-(10, 'L004', 'Laptop HP', 12000000, 13000000, 20, 5, 5),
-(11, 'L002', 'Laptop ASUS', 10000000, 15000000, 50, 10, 5),
-(13, 'L003', 'Laptop ACER', 10000000, 15000000, 50, 10, 5),
-(14, 'L005', 'Laptop MAC', 10000000, 15000000, 50, 10, 5);
+(16, 'TV001', 'Sony 56 inch', 1000000, 1500000, 10, 5, 11);
 
 -- --------------------------------------------------------
 
@@ -361,7 +335,7 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `jenis_produk`
 --
 ALTER TABLE `jenis_produk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kartu`
@@ -403,7 +377,7 @@ ALTER TABLE `pesanan_items`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -437,8 +411,8 @@ ALTER TABLE `pembayaran`
 -- Constraints for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  ADD CONSTRAINT `pembelian_ibfk_1` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`),
-  ADD CONSTRAINT `pembelian_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`id`);
+  ADD CONSTRAINT `pembelian_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`id`),
+  ADD CONSTRAINT `pembelian_ibfk_3` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `pesanan`
@@ -457,7 +431,7 @@ ALTER TABLE `pesanan_items`
 -- Constraints for table `produk`
 --
 ALTER TABLE `produk`
-  ADD CONSTRAINT `fk_produk_jenis_produk1` FOREIGN KEY (`jenis_produk_id`) REFERENCES `jenis_produk` (`id`);
+  ADD CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`jenis_produk_id`) REFERENCES `jenis_produk` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
